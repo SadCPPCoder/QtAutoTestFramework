@@ -1,0 +1,9 @@
+#ifndef QTAT_CONFIG_H
+#define QTAT_CONFIG_H
+
+#define QTAT_VERSION_MAJOR 1
+#define QTAT_VERSION_MINOR 0
+#define QTAT_VERSION_PATCH 0
+#define QTAT_VERSION_STRING "1.0.0"
+
+#endif // QTAT_CONFIG_H

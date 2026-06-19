@@ -1,0 +1,140 @@
+# ====================
+# Build directories
+# ====================
+build/
+bin/
+cmake-build-*/
+out/
+
+# ====================
+# C++ / Qt
+# ====================
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
+
+# Qt specific
+*.pro.user
+*.pro.user.*
+*.qbs.user
+*.qbs.user.*
+*.moc
+moc_*.cpp
+moc_*.h
+qrc_*.cpp
+ui_*.h
+*.autosave
+Makefile
+Makefile.Debug
+Makefile.Release
+.qmake.stash
+
+# Qt Creator
+CMakeLists.txt.user
+*.qmlc
+*.jsc
+
+# ====================
+# IDE
+# ====================
+# Visual Studio
+.vs/
+*.sln.docstates
+*.suo
+*.ncb
+*.sdf
+*.opensdf
+*.VC.db
+*.VC.VC.opendb
+
+# JetBrains (CLion, IntelliJ)
+.idea/
+*.iml
+
+# VS Code
+.vscode/
+*.code-workspace
+
+# ====================
+# Python
+# ====================
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+*.egg
+dist/
+build/
+eggs/
+*.whl
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+env/
+
+# pytest
+.pytest_cache/
+.coverage
+htmlcov/
+
+# ====================
+# Test output
+# ====================
+screenshots/
+*.png
+*.jpg
+test_server.log
+
+# ====================
+# OS specific
+# ====================
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Linux
+*~
+.directory
+
+# ====================
+# Misc
+# ====================
+*.bak
+*.tmp
+*.temp
+*.swp
+*.save
