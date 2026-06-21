@@ -277,7 +277,6 @@ def test_login_failure(client: QtTestClient):
             print(f"  [OK] Error message: {message.properties.get('text')}")
     else:
         print("  [WARN] Error dialog not found")
-
     # Close dialog
     client.key_click("enter")
     client.wait(300)

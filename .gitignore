@@ -55,6 +55,7 @@ Makefile.Release
 CMakeLists.txt.user
 *.qmlc
 *.jsc
+.qtcreator/
 
 # ====================
 # IDE

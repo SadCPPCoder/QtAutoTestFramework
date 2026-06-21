@@ -84,6 +84,8 @@ void EventSender::doMouseClick(int x, int y, int button, int modifiers)
     QTest::mouseClick(m_window, static_cast<Qt::MouseButton>(button),
                       static_cast<Qt::KeyboardModifiers>(modifiers), QPoint(x, y));
     QCoreApplication::processEvents();
+    QThread::msleep(50);  // Give QML time to process
+    QCoreApplication::processEvents();
     m_result = true;
 }
 
@@ -153,6 +155,7 @@ void EventSender::doKeyClick(int key, int modifiers)
     QTest::keyClick(m_window, static_cast<Qt::Key>(key),
                     static_cast<Qt::KeyboardModifiers>(modifiers));
     QCoreApplication::processEvents();
+    QThread::msleep(50);
     m_result = true;
 }
 
@@ -169,8 +172,10 @@ void EventSender::doKeyType(const QString &text)
             QTest::keyClick(m_window, key);
         }
         QCoreApplication::processEvents();
-        QThread::msleep(50);
+        QThread::msleep(30);
     }
+    QCoreApplication::processEvents();
+    QThread::msleep(50);
     m_result = true;
 }
 

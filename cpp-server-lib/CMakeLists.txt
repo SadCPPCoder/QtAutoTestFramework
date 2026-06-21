@@ -5,15 +5,26 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_AUTOMOC ON)
 
-# Windows HTTP Server API
-add_definitions(-DWIN32_LEAN_AND_MEAN)
-
 find_package(Qt6 REQUIRED COMPONENTS Core Quick Test)
 
-# 源文件
+# Platform-specific configuration
+if(WIN32)
+    # Windows: Use Windows HTTP Server API
+    add_definitions(-DWIN32_LEAN_AND_MEAN)
+    set(PLATFORM_SOURCES src/HttpServerWin.cpp)
+    set(PLATFORM_LIBS Httpapi)
+else()
+    # Linux: Use libmicrohttpd
+    find_package(PkgConfig REQUIRED)
+    pkg_check_modules(MHD REQUIRED libmicrohttpd)
+    set(PLATFORM_SOURCES src/HttpServerLinux.cpp)
+    set(PLATFORM_LIBS ${MHD_LIBRARIES})
+endif()
+
+# Common source files
 set(LIB_SOURCES
     src/QtAutoTestServer.cpp
-    src/HttpServer.cpp
+    ${PLATFORM_SOURCES}
     src/RequestHandler.cpp
     src/ObjectFinder.cpp
     src/EventSender.cpp
@@ -28,7 +39,7 @@ set(LIB_HEADERS
     inc/qtautotest/qtat_config.h
 )
 
-# 内部头文件
+# Internal headers
 set(INTERNAL_HEADERS
     src/HttpServer.h
     src/RequestHandler.h
@@ -39,14 +50,14 @@ set(INTERNAL_HEADERS
     src/Logger.h
 )
 
-# 创建静态库
+# Create static library
 add_library(QtAutoTestServer STATIC
     ${LIB_SOURCES}
     ${LIB_HEADERS}
     ${INTERNAL_HEADERS}
 )
 
-# 包含目录
+# Include directories
 target_include_directories(QtAutoTestServer
     PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/inc>
@@ -56,17 +67,22 @@ target_include_directories(QtAutoTestServer
         ${CMAKE_CURRENT_SOURCE_DIR}/inc/qtautotest
 )
 
-# 链接库
+# Linux: Add libmicrohttpd include directories
+if(NOT WIN32)
+    target_include_directories(QtAutoTestServer PRIVATE ${MHD_INCLUDE_DIRS})
+endif()
+
+# Link libraries
 target_link_libraries(QtAutoTestServer
     PUBLIC
         Qt6::Core
         Qt6::Quick
         Qt6::Test
     PRIVATE
-        Httpapi
+        ${PLATFORM_LIBS}
 )
 
-# 编译定义
+# Compile definitions
 target_compile_definitions(QtAutoTestServer PRIVATE
     QTAT_BUILD_STATIC
 )
